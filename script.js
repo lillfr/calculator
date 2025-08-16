@@ -65,7 +65,6 @@ digits.forEach(digit => {
         if (wasNum) {
             wasNum = false;
             text.innerHTML = '';
-            console.log('aboba');
         }
         if (wasEqual) {
             clearEverything();
