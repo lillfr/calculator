@@ -60,7 +60,6 @@ digits.forEach(digit => {
         }
         if (wasEqual) {
             wasEqual = false;
-            // a = text.innerHTML;
             clearEverything();
         }
         text.innerHTML += e.target.innerHTML;
@@ -72,6 +71,9 @@ digits.forEach(digit => {
 const dot = document.querySelector(".dot");
 dot.addEventListener('click', (e) => {
     if (!wasDot) {
+        if (wasNum) {
+            text.innerHTML = '';
+        }
         wasDot = true;
         text.innerHTML += '.';
         if (op == '') a += e.target.innerHTML;
