@@ -61,11 +61,11 @@ digits.forEach(digit => {
     digit.addEventListener('click', (e) => {
         if (wasErr) {
             clearEverything();
-            console.log('aboba2');
         }
         if (wasNum) {
             wasNum = false;
             text.innerHTML = '';
+            console.log('aboba');
         }
         if (wasEqual) {
             clearEverything();
@@ -79,7 +79,11 @@ digits.forEach(digit => {
 const dot = document.querySelector(".dot");
 dot.addEventListener('click', (e) => {
     if (!wasDot) {
+        if (wasErr) {
+            clearEverything();
+        }
         if (wasNum) {
+            wasNum = false;
             text.innerHTML = '';
         }
         wasDot = true;
