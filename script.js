@@ -26,7 +26,10 @@ function operate (a, b, op) {
             res = multiply(a, b);
             break;
         case '÷': 
-            if (b == 0) return 'your calculator farted..'; 
+            if (b == 0) {
+                wasErr = true;
+                return 'your calculator farted..'; 
+            }
             res = divide(a, b);
             break;
     }
@@ -41,6 +44,7 @@ function clearEverything() {
     wasNum = false;
     wasDot = false;
     wasEqual = false;
+    wasErr = false;
 }
 
 let a = '';
@@ -49,17 +53,21 @@ let op = '';
 let wasNum = false;
 let wasEqual = false;
 let wasDot = false;
+let wasErr = false;
 const text = document.querySelector('#text');
 
 const digits = document.querySelectorAll(".digit");
 digits.forEach(digit => {
     digit.addEventListener('click', (e) => {
+        if (wasErr) {
+            clearEverything();
+            console.log('aboba2');
+        }
         if (wasNum) {
             wasNum = false;
             text.innerHTML = '';
         }
         if (wasEqual) {
-            wasEqual = false;
             clearEverything();
         }
         text.innerHTML += e.target.innerHTML;
@@ -84,26 +92,32 @@ dot.addEventListener('click', (e) => {
 const operators = document.querySelectorAll(".operator");
 operators.forEach(operator => {
     operator.addEventListener('click', (e) => {
-        wasDot = false;
-        if (a == '') {
-            a = '0';
-            text.innerHTML = '0';
+        if (wasErr) {
+            clearEverything();
+        } else {
+            wasDot = false;
+            if (a == '') {
+                a = '0';
+                text.innerHTML = '0';
+                wasNum = true;
+            }
+            if (a != '' && b != '') {
+                text.innerHTML = operate(a, b, op);
+                if (!wasErr) {
+                    a = text.innerHTML;
+                    b = '';
+                    wasNum = true;
+                }
+            }
+            if (wasEqual) {
+                wasEqual = false;
+                a = text.innerHTML;
+                b = '';
+            }
+            if (e.target.innerHTML == '&divide;') op = '/';
+            else op = e.target.innerHTML;
             wasNum = true;
         }
-        if (a != '' && b != '') {
-            text.innerHTML = operate(a, b, op);
-            a = text.innerHTML;
-            b = '';
-            wasNum = true;
-        }
-        if (wasEqual) {
-            wasEqual = false;
-            a = text.innerHTML;
-            b = '';
-        }
-        if (e.target.innerHTML == '&divide;') op = '/';
-        else op = e.target.innerHTML;
-        wasNum = true;
     });
 });
 
@@ -114,21 +128,25 @@ clear.addEventListener('click', (e) => {
 
 const del = document.querySelector("#del");
 del.addEventListener('click', (e) => {
-    let str = text.innerHTML;
-    str = str.slice(0, str.length-1);
-    text.innerHTML = str;
-    if (wasEqual) {
-        wasEqual = false;
-        a = str;
-        b = '';
-        op = '';
-    } else if (op != '') {
-        b = str;
+    if (wasErr) {
+        clearEverything();
     } else {
-        a = str;
-        op = '';
-        b = '';
-        wasNum = true;
+        let str = text.innerHTML;
+        str = str.slice(0, str.length-1);
+        text.innerHTML = str;
+        if (wasEqual) {
+            wasEqual = false;
+            a = str;
+            b = '';
+            op = '';
+        } else if (op != '') {
+            b = str;
+        } else {
+            a = str;
+            op = '';
+            b = '';
+            wasNum = true;
+        }
     }
 });
 
