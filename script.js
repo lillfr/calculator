@@ -60,7 +60,7 @@ digits.forEach(digit => {
         }
         if (wasEqual) {
             wasEqual = false;
-            a = text.innerHTML;
+            // a = text.innerHTML;
             clearEverything();
         }
         text.innerHTML += e.target.innerHTML;
@@ -92,6 +92,7 @@ operators.forEach(operator => {
             text.innerHTML = operate(a, b, op);
             a = text.innerHTML;
             b = '';
+            wasNum = true;
         }
         if (wasEqual) {
             wasEqual = false;
@@ -119,9 +120,13 @@ del.addEventListener('click', (e) => {
         a = str;
         b = '';
         op = '';
+    } else if (op != '') {
+        b = str;
     } else {
         a = str;
         op = '';
+        b = '';
+        wasNum = true;
     }
 });
 
