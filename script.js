@@ -145,7 +145,7 @@ del.addEventListener('click', (e) => {
             a = str;
             op = '';
             b = '';
-            wasNum = true;
+            // wasNum = true;
         }
     }
 });

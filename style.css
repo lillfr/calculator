@@ -1,12 +1,6 @@
 body {
     background-color: black;
 }
-.digit {
-    font-family:'Courier New', Courier, monospace !important;
-}
-#clear, .operator {
-    font-family:Georgia, 'Times New Roman', Times, serif !important;
-}
 #cal {
     width: 285px;
     background-color: rgb(124, 168, 82);
@@ -67,4 +61,10 @@ button:active {
 }
 .zero {
     width: 135px;
+}
+.digit {
+    font-family:'Courier New', Courier, monospace !important;
+}
+#clear, .operator {
+    font-family:Georgia, 'Times New Roman', Times, serif !important;
 }
